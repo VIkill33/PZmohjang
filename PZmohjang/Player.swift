@@ -16,9 +16,18 @@ class Player: ObservableObject {
     @Published var isPiaohun: Bool = false
     @Published var type: player_type
     @Published var id = UUID()
+    
     init(type: player_type) {
         self.type = type
     }
+    
+    func resetState() {
+        hu = 0
+        yao = 0
+        isWin = false
+        isPiaohun = false
+    }
+    
     func reset() {
         score = 0
         hu = 0

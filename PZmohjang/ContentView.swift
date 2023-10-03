@@ -48,6 +48,13 @@ struct ContentView: View {
                 }
                 playerButton(playerText: "南", bindingPlayer: southPlayer, isInput: $isInput, currentPlayer: $currentPlayer)
                 Spacer()
+                Button("下一局") {
+                    let playerList = [northPlayer, eastPlayer, southPlayer, westPalyer]
+                    setNewHost(playerList: playerList)
+                    for player in playerList {
+                        player.resetState()
+                    }
+                }
                 calcButton(northPlayer: northPlayer, southPlayer: southPlayer, westPlayer: westPalyer, eastPlayer: eastPlayer, score_upbound: $score_upbound, yao_ratio: $yao_ratio)
                     .padding()
             }
@@ -74,6 +81,32 @@ struct ContentView: View {
         //.environmentObject(westPalyer)
         .sheet(isPresented: $isHelp) {
             helpSheet()
+        }
+    }
+}
+
+extension ContentView {
+    func setNewHost(playerList: [Player]) {
+        for i in 0..<4 {
+            if i == 0 {
+                if playerList[3].isHost {
+                    if playerList[3].isWin {
+                        return
+                    }
+                    playerList[3].isHost = false
+                    playerList[i].isHost = true
+                    return
+                }
+            } else {
+                if playerList[i - 1].isHost {
+                    if playerList[i - 1].isWin {
+                        return
+                    }
+                    playerList[i - 1].isHost = false
+                    playerList[i].isHost = true
+                    return
+                }
+            }
         }
     }
 }
