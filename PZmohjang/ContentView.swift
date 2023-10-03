@@ -68,10 +68,10 @@ struct ContentView: View {
                 settingBox(isSetting: $isSetting, score_upbound: $score_upbound, yao_ratio: $yao_ratio, northPlayer: northPlayer, southPlayer: southPlayer, westPlayer: westPalyer, eastPlayer: eastPlayer)
             }
         }
-        .environmentObject(northPlayer)
-        .environmentObject(eastPlayer)
-        .environmentObject(southPlayer)
-        .environmentObject(westPalyer)
+        //.environmentObject(northPlayer)
+        //.environmentObject(eastPlayer)
+        //.environmentObject(southPlayer)
+        //.environmentObject(westPalyer)
         .sheet(isPresented: $isHelp) {
             helpSheet()
         }
@@ -387,7 +387,7 @@ extension calcButton {
                 temp_score += calc_player.yao * yao_ratio
                 temp_score -= player.yao * yao_ratio
                 // 封顶
-                if score_upbound > 0 && temp_score > score_upbound {
+                if score_upbound > 0 && abs(temp_score) > score_upbound {
                     temp_score = score_upbound
                 }
                 
